@@ -20,6 +20,10 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+const generateTicketId = () => {
+  return Math.random().toString(36).substring(2, 15);
+};
+
 const Page = () => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -68,6 +72,7 @@ const Page = () => {
 
   // handle form submit
   const handleSubmit = async () => {
+    const ticketId = generateTicketId();
     try {
       setLoading(true);
 
@@ -78,8 +83,21 @@ const Page = () => {
       await addDoc(collection(db, "tickets"), {
         ...form,
         files: fileUrls,
+        ticketId: ticketId,
         status: "open",
         createdAt: new Date().toISOString(),
+      });
+
+      await fetch("/api/send-email/confirm-ticket", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ticketId: ticketId,
+          userName: form.name,
+          userEmail: form.email,
+        }),
       });
 
       alert("✅ Ticket criado com sucesso!");
@@ -113,7 +131,7 @@ const Page = () => {
       <div className="py-8 px-4 max-w-screen-md mx-auto">
         <div className="shadow-md rounded-xl p-6 grid gap-6 bg-white">
           {/* Solicitante */}
-          <div className="grid gap-2">
+          <div className="grid gap-4">
             <Label>Solicitante</Label>
             <Input
               required

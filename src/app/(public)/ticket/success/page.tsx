@@ -19,7 +19,7 @@ export default function TicketSentPage() {
         </p>
 
         <div className="flex flex-col gap-3 mt-6">
-          <Link href="/ticket/all">
+          <Link href="/tickets/all">
             <Button variant="outline" className="w-full">
               Ver meus tickets
             </Button>

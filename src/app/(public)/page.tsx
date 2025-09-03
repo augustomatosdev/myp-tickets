@@ -53,7 +53,7 @@ export default function Home() {
           </Card>
           {/* View Tickets Card */}
           <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
-            <Link href="/ticket/all" className="flex items-start gap-4">
+            <Link href="/tickets/all" className="flex items-start gap-4">
               <div className="p-3 bg-blue-50 rounded-lg">
                 <TicketCheck className="w-8 h-8 text-blue-600" />
               </div>
