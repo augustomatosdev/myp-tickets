@@ -15,11 +15,7 @@ export default function Home() {
             Olá, como podemos te ajudar?
           </h1>
           <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-            <Input
-              type="text"
-              placeholder="Pesquise sua questão aqui..."
-              className="flex-1 h-12 text-slate-200"
-            />
+            <Input type="text" placeholder="Pesquise sua questão aqui..." />
             <Button
               className="bg-white text-slate-800 hover:bg-slate-100 h-12 px-6"
               type="submit"
